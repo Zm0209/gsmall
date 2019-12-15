@@ -7,13 +7,13 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
     <property name="LOG_HOME" value="${catalina.base}/logs"></property>
     <!--日志最大的历史  30天-->
     <property name="maxHistory" value="30"></property>
+    <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
     <property name="log_pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"></property>
     <!--控制台输出日志-->
     <appender name="cansole" class="ch.qos.logback.core.ConsoleAppender">
         <!--字符集-->
         <encoding>UTF-8</encoding>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
             <pattern>${log_pattern}</pattern>
         </encoder>
         <!--过滤器  只记录debug级别-->
@@ -26,9 +26,11 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
     <appender name="gsmall" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--文件位置-->
         <file>${LOG_HOME}/gsmall.log</file>
+        <!--当发生滚动时，决定RollingFileAppender的行为-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
             <FileNamePattern>${LOG_HOME}/gsmall.log.%d{yyyy-MM-dd}.gz</FileNamePattern>
+            <!--日志追加到文件结尾-->
             <append>true</append>
             <maxHistory>${maxHistory}</maxHistory>
         </rollingPolicy>
@@ -55,6 +57,10 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
         </filter>
     </appender>
 
+    <!--name:用来指定受此logger约束的某一个包或者具体的某一个类
+    level:用来设置打印级别
+    additivity:是否向上级logger传递打印信息。默认是true，会将信息输入到root配置指定的地方
+    -->
     <logger name="com.gs" additivity="false" level="INFO" >
         <appender-ref ref="gsmall" />
         <appender-ref ref="console"/>
