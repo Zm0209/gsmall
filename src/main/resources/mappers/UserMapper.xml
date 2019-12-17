@@ -19,5 +19,4 @@
     <select id="selectUserById" resultType="com.gs.pojo.User" parameterType="int">
         select * from user where id=#{id}
     </select>
-
 </mapper>

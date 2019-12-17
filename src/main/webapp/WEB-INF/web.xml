@@ -7,8 +7,15 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>Archetype Created Web Application</display-name>
-  
-  
+
+  <!--加载spring容器-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
   
   <servlet>
     <servlet-name>springmvc</servlet-name>
@@ -17,6 +24,8 @@
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath*:springmvc.xml</param-value>
     </init-param>
+    <!--配置服务器启动后立即加载SpringMVC配置文件-->
+    <load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet-mapping>
