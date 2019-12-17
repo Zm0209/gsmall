@@ -1,7 +1,10 @@
 package com.gs.pojo;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 
+@Component
 public class User {
     private Integer id;
     private String username;
